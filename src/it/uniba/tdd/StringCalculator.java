@@ -26,10 +26,16 @@ public class StringCalculator {
 				if (numbersStr.contains(",\n") || numbersStr.contains("\n,"))
 					throw new StringCalculatorException("Format number error.");
 			}
+			if (numbersStr.contains("--") && delimitator == '-' || numbersStr.contains("-") && delimitator != '-')
+				throw new StringCalculatorException("Format number error.");
+
 			int total = 0;
+			int n = 0;
 			String split[] = numbersStr.split("(" + delimitator + ")|(\\\n)");
 			for (String number : split) {
-				total += Integer.parseInt(number);
+				n = Integer.parseInt(number);
+				if (n < 1000)
+					total += n;
 			}
 			return total;
 		}
